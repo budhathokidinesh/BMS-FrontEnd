@@ -3,11 +3,12 @@ import { Header } from "./Header";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
-import { Sidebar } from "../Sidebar";
+import { Sidebar } from "./Sidebar";
+import { AuthRoute } from "../auth/AuthRoute";
 
 export const UserLayout = () => {
   return (
-    <div>
+    <AuthRoute>
       {/* Header  */}
       <Header />
       {/* Main body  */}
@@ -33,6 +34,6 @@ export const UserLayout = () => {
 
       {/* Footer  */}
       <Footer />
-    </div>
+    </AuthRoute>
   );
 };
