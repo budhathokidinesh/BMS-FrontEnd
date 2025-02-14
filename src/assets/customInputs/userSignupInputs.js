@@ -35,7 +35,7 @@ export const signupInputs = [
   },
   {
     label: "Confirm Password*",
-    name: "confirm-password",
+    name: "confirmPassword",
     type: "password",
     required: true,
     placeholder: "******",
