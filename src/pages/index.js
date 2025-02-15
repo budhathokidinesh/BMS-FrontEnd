@@ -3,6 +3,8 @@
 //This is for public pages
 export { default as HomePage } from "./home/HomePage";
 export { default as SignUpPage } from "./auth/SignUpPage";
+export { default as ActivateUserPage } from "./auth/ActivateUserPage";
+
 export { default as SignInPage } from "./auth/SignInPage";
 export { default as ForgotPasswordPage } from "./auth/ForgotPassword";
 

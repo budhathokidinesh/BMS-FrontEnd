@@ -3,6 +3,7 @@ import {
   HomePage,
   DashboardPage,
   SignUpPage,
+  ActivateUserPage,
   SignInPage,
   ForgotPasswordPage,
   BooksPage,
@@ -25,6 +26,7 @@ const AppRoutes = () => {
       <Route path="/" element={<DefaultLayouts />}>
         <Route index element={<HomePage />} />
         <Route path="signup" element={<SignUpPage />} />
+        <Route path="activate-user" element={<ActivateUserPage />} />
         <Route path="login" element={<SignInPage />} />
         <Route path="forgot-password" element={<ForgotPasswordPage />} />
       </Route>

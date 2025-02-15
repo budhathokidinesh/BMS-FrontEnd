@@ -20,6 +20,9 @@ const SignupPage = () => {
       return alert("Password do not match");
     const result = await signupNewUserAPi(rest);
     console.log(result);
+    const { status, message } = result;
+    console.log(status, message);
+    // status === "success" && form.rest();
   };
   console.log(passwordErrors);
   return (
