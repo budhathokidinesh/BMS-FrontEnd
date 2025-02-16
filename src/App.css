@@ -1,3 +1,9 @@
 .main {
   min-height: 81.6vh;
 }
+/* sign in page  */
+.signin-page {
+  min-height: 100vh;
+  background: url(./assets/BMS.jpg) center no-repeat;
+  background-size: cover;
+}

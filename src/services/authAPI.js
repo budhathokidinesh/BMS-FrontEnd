@@ -23,3 +23,14 @@ export const activateNewUserAPi = async (payload) => {
   };
   return apiProcessor(obj);
 };
+
+//this is for sign in user
+export const signinUserAPi = async (payload) => {
+  const obj = {
+    url: authApiEP + "/login",
+    method: "post",
+    payload,
+    showToast: true,
+  };
+  return apiProcessor(obj);
+};
