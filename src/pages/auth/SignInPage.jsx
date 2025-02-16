@@ -4,6 +4,7 @@ import { Card, Form } from "react-bootstrap";
 import { CustomInput } from "../../components/customInput/CustomInput.jsx";
 import useForm from "../../hooks/useForm.js";
 import { signinUserAPi } from "../../services/authAPI.js";
+import { fetchUserAPi } from "../../features/user/userAPI.js";
 
 const initialState = {};
 const SignInPage = () => {
@@ -15,9 +16,15 @@ const SignInPage = () => {
     console.log(form);
     if (form.email && form.password) {
       const { payload } = await signinUserAPi(form);
-      sessionStorage.setItem("accessJWT", payload.accessJWT);
-      localStorage.setItem("refreshJWT", payload.refreshJWT);
-      console.log(data);
+
+      if (payload?.accessJWT) {
+        sessionStorage.setItem("accessJWT", payload.accessJWT);
+        localStorage.setItem("refreshJWT", payload.refreshJWT);
+
+        //call api to get user profile
+        const userInfo = await fetchUserAPi();
+        console.log(userInfo);
+      }
 
       //getting user and redirecting to dashboard
     } else {
