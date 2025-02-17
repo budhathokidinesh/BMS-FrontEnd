@@ -4,11 +4,13 @@ import { Card, Form } from "react-bootstrap";
 import { CustomInput } from "../../components/customInput/CustomInput.jsx";
 import useForm from "../../hooks/useForm.js";
 import { signinUserAPi } from "../../services/authAPI.js";
-import { fetchUserAPi } from "../../features/user/userAPI.js";
+import { fetchUserAction } from "../../features/user/userAction.js";
+import { useDispatch } from "react-redux";
 
 const initialState = {};
 const SignInPage = () => {
   const { form, handleOnChange } = useForm(initialState);
+  const dispatch = useDispatch();
 
   //this is for submitting the form
   const handleOnSubmit = async (e) => {
@@ -22,8 +24,7 @@ const SignInPage = () => {
         localStorage.setItem("refreshJWT", payload.refreshJWT);
 
         //call api to get user profile
-        const userInfo = await fetchUserAPi();
-        console.log(userInfo);
+        dispatch(fetchUserAction());
       }
 
       //getting user and redirecting to dashboard
