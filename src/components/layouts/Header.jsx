@@ -6,12 +6,25 @@ import logo from "../../assets/BMS.webp";
 import { FaHome } from "react-icons/fa";
 import { IoLogInSharp } from "react-icons/io5";
 import { GiArchiveRegister } from "react-icons/gi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiTwotoneDashboard } from "react-icons/ai";
 import { IoLogOutSharp } from "react-icons/io5";
+import { logoutUserAPi } from "../../services/authAPI";
+import { setUser } from "../../features/user/userSlice.js";
 
 export const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
+  const dispatch = useDispatch();
+  //this is for logout user
+  const handleOnLogout = () => {
+    //call api to logout from backend
+    logoutUserAPi();
+    //call logout from the frontend
+    sessionStorage.removeItem("accessJWT");
+    localStorage.removeItem("refreshJWT");
+    dispatch(setUser({}));
+  };
+
   return (
     <Navbar expand="md" className="bg-dark" variant="dark">
       <Container>
@@ -31,7 +44,7 @@ export const Header = () => {
                   <AiTwotoneDashboard />
                   Dashboard
                 </Link>
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/" onClick={handleOnLogout}>
                   Logout <IoLogOutSharp />
                 </Link>
               </>
