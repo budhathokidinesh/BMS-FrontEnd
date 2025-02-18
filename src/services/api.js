@@ -1,9 +1,13 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { fetchNewAccessJWTAPi } from "./authAPI.js";
 
 //this function to get accessJWT from session storage
 const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
+};
+const getRefreshJWT = () => {
+  return localStorage.getItem("refreshJWT");
 };
 
 export const apiProcessor = async ({
@@ -12,11 +16,14 @@ export const apiProcessor = async ({
   payload,
   showToast,
   isPrivateCall,
+  isRefreshJWT,
 }) => {
   try {
     const headers = {};
+
     if (isPrivateCall) {
-      headers.authorization = "bearer " + getAccessJWT();
+      const token = isRefreshJWT ? getRefreshJWT() : getAccessJWT();
+      headers.authorization = "bearer " + token;
     }
 
     const responsePending = axios({
@@ -40,6 +47,25 @@ export const apiProcessor = async ({
     console.log(error);
     const msg = error?.response?.data?.message || error.message;
     showToast && toast.error(msg);
+    if (error.status === 401 && msg === "jwt expired") {
+      //call api to get new accessJWT
+      const { payload } = await fetchNewAccessJWTAPi();
+      if (payload) {
+        sessionStorage.setItem("accessJWT", payload);
+        //call the apiProcessor()
+        return apiProcessor({
+          url,
+          method,
+          payload,
+          showToast,
+          isPrivateCall,
+          isRefreshJWT,
+        });
+      }
+    } else {
+      sessionStorage.removeItem("accessJWT");
+      localStorage.removeItem("refreshJWT");
+    }
     return {
       status: "error",
       message: msg,

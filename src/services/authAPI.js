@@ -34,3 +34,13 @@ export const signinUserAPi = async (payload) => {
   };
   return apiProcessor(obj);
 };
+//this is for the auto login feature(request new accessJWT api)
+export const fetchNewAccessJWTAPi = async () => {
+  const obj = {
+    url: authApiEP + "/renew-jwt",
+    method: "get",
+    isPrivateCall: true,
+    isRefreshJWT: true,
+  };
+  return apiProcessor(obj);
+};

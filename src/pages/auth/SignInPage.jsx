@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { Card, Form } from "react-bootstrap";
 import { CustomInput } from "../../components/customInput/CustomInput.jsx";
 import useForm from "../../hooks/useForm.js";
 import { signinUserAPi } from "../../services/authAPI.js";
-import { fetchUserAction } from "../../features/user/userAction.js";
-import { useDispatch } from "react-redux";
+import {
+  autoLoginUser,
+  fetchUserAction,
+} from "../../features/user/userAction.js";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {};
 const SignInPage = () => {
   const { form, handleOnChange } = useForm(initialState);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const { user } = useSelector((state) => state.userInfo);
+
+  useEffect(() => {
+    user?._id ? navigate("/user") : dispatch(autoLoginUser());
+  }, [user?._id, navigate, dispatch]);
   //this is for submitting the form
   const handleOnSubmit = async (e) => {
     e.preventDefault();
