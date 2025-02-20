@@ -1,23 +1,70 @@
-import React, { useRef, useState } from "react";
-import { Alert, Button, Card, Form } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { CustomInput } from "../../components/customInput/CustomInput.jsx";
 import useForm from "../../hooks/useForm.js";
+import {
+  requestPassResetOTPAPi,
+  resetPassPAPi,
+} from "../../services/authAPI.js";
 
 const initialState = {};
+const timeToRequestOTPAgain = 20; //60 seconds
+
 const ForgotPassword = () => {
+  const navigate = useNavigate();
   const emailRef = useRef("");
   const [showPassResetForm, setShowPassResetForm] = useState(false);
   const { form, passwordErrors, handleOnChange } = useForm(initialState);
 
-  const handleOnSubmit = (e) => {
+  const [isOtpPending, setIsOtpPending] = useState(false);
+  const [isOtpBtnDisabled, setIsOtpBtnDisabled] = useState(false);
+
+  //this is for counter
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    if (counter > 0) {
+      const timer = setInterval(() => {
+        setCounter(counter - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    } else {
+      setIsOtpBtnDisabled(false);
+    }
+  }, [counter]);
+  //this handleOnSubmit is for request for otp
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
-    console.log(email);
+
+    //call api
+    setIsOtpPending(true);
+    setIsOtpBtnDisabled(true);
+    const response = await requestPassResetOTPAPi({ email });
+    if (response?.status === "success") {
+      setShowPassResetForm(true);
+    }
+    setIsOtpPending(false);
+    // setIsOtpBtnDisabled(false);
+    setCounter(timeToRequestOTPAgain);
   };
   console.log(form);
-  const handleOnPasswordResetSubmit = (e) => {
+
+  //this is for submit the otp and password
+  const handleOnPasswordResetSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+    const email = emailRef.current.value;
+    const payload = {
+      email,
+      otp: form.otp,
+      password: form.password,
+    };
+    const response = await resetPassPAPi(payload);
+    if (response?.status === "success") {
+      //redirect uset to login page
+      setTimeout(() => navigate("/login"), 3000);
+    }
   };
 
   return (
@@ -40,7 +87,15 @@ const ForgotPassword = () => {
             />
 
             <div className="d-grid">
-              <Button type="submit">Request OTP</Button>
+              <Button type="submit" disabled={isOtpBtnDisabled}>
+                {isOtpPending ? (
+                  <Spinner varient="boarder" />
+                ) : counter > 0 ? (
+                  `Request OTP in ${counter}`
+                ) : (
+                  "Request OTP"
+                )}
+              </Button>
             </div>
           </Form>
           {showPassResetForm && (
