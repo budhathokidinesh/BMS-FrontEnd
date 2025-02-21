@@ -10,7 +10,7 @@ import {
   fetchUserAction,
 } from "../../features/user/userAction.js";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 
 const initialState = {};
@@ -19,11 +19,13 @@ const SignInPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const showLoaderRef = useRef(true);
-
+  const location = useLocation();
+  console.log(location);
+  const path = location?.state?.from ?? "/user";
   const { user } = useSelector((state) => state.userInfo);
 
   useEffect(() => {
-    user?._id ? navigate("/user") : dispatch(autoLoginUser());
+    user?._id ? navigate(path) : dispatch(autoLoginUser());
     //this is for loader
     if (
       sessionStorage.getItem("accessJWT") ||

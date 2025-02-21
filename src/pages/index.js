@@ -18,3 +18,5 @@ export { default as ReviewsPage } from "./reviews/ReviewsPage";
 export { default as BorrowHistoryPage } from "./books/BorrowHistoryPage";
 export { default as UserPage } from "./user/UserPage";
 export { default as ProfilePage } from "./user/ProfilePage";
+
+//this is for the books
