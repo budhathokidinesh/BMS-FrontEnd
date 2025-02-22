@@ -1,0 +1,52 @@
+export const newBookInputs = [
+  {
+    label: "Title*",
+    name: "title",
+    type: "text",
+    required: true,
+    placeholder: "Java Script",
+  },
+  {
+    label: "Year*",
+    name: "year",
+    type: "Number",
+    min: "1901",
+    max: new Date().getFullYear(),
+    required: true,
+    placeholder: "2025",
+  },
+  {
+    label: "Author",
+    name: "author",
+    type: "text",
+    placeholder: "Dinesh Budhathoki",
+  },
+  {
+    label: "Image Url*",
+    name: "imgUrl",
+    type: "url",
+    required: true,
+    placeholder: "http://path-to-imgUrl",
+  },
+  {
+    label: "ISBN*",
+    name: "isbn",
+    type: "Number",
+    required: true,
+    placeholder: "**********",
+  },
+  {
+    label: "Genre*",
+    name: "genre",
+    type: "text",
+    required: true,
+    placeholder: "Programming",
+  },
+  {
+    label: "Description",
+    name: "description",
+    type: "text",
+    as: "textarea",
+    placeholder: "Book summary",
+  },
+];
