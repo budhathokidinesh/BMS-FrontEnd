@@ -29,7 +29,7 @@ export const UserLayout = () => {
         </div>
 
         {/* this is for main body  */}
-        <main className="main">
+        <main className="user-main">
           <Outlet />
         </main>
       </div>

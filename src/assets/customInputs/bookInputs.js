@@ -50,3 +50,64 @@ export const newBookInputs = [
     placeholder: "Book summary",
   },
 ];
+
+//this is fot the edit books
+export const editBookInputs = [
+  {
+    label: "Title*",
+    name: "title",
+    type: "text",
+    required: true,
+  },
+  {
+    label: "Slug",
+    name: "slug",
+    type: "text",
+    required: true,
+    disabled: true,
+    placeholder: "Java Script",
+  },
+  {
+    label: "Year*",
+    name: "year",
+    type: "Number",
+    min: "1901",
+    max: new Date().getFullYear(),
+    required: true,
+  },
+  {
+    label: "Author",
+    name: "author",
+    type: "text",
+  },
+  {
+    label: "Image Url*",
+    name: "imgUrl",
+    type: "url",
+    required: true,
+  },
+  {
+    label: "ISBN*",
+    name: "isbn",
+    type: "Number",
+    required: true,
+    disabled: true,
+  },
+  {
+    label: "Genre*",
+    name: "genre",
+    type: "text",
+    required: true,
+  },
+  {
+    label: "Expected Available Date",
+    name: "expectedAvailable",
+    type: "Date",
+  },
+  {
+    label: "Description",
+    name: "description",
+    type: "text",
+    as: "textarea",
+  },
+];

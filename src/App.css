@@ -1,5 +1,8 @@
 .main {
   min-height: 81.6vh;
+}
+.user-main {
+  min-height: 81.6vh;
   width: calc(100% - 200px);
 }
 /* sign in page  */
