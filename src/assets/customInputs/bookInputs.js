@@ -43,6 +43,11 @@ export const newBookInputs = [
     placeholder: "Programming",
   },
   {
+    label: "Expected Available Date",
+    name: "expectedAvailable",
+    type: "Date",
+  },
+  {
     label: "Description",
     name: "description",
     type: "text",
@@ -79,6 +84,7 @@ export const editBookInputs = [
     label: "Author",
     name: "author",
     type: "text",
+    required: true,
   },
   {
     label: "Image Url*",
@@ -90,7 +96,6 @@ export const editBookInputs = [
     label: "ISBN*",
     name: "isbn",
     type: "Number",
-    required: true,
     disabled: true,
   },
   {

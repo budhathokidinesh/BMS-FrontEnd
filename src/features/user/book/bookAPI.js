@@ -24,3 +24,27 @@ export const adminFetchAllBookAPi = async () => {
   const result = await apiProcessor(obj);
   return result;
 };
+
+//this is for updating the book called update book api
+export const updateBookAPi = async (payload) => {
+  const obj = {
+    url: bookApiEP,
+    method: "put",
+    showToast: true,
+    isPrivateCall: true,
+    payload,
+  };
+  const result = await apiProcessor(obj);
+  return result;
+};
+//this is for deleting the book
+export const deleteBookAPi = async (_id) => {
+  const obj = {
+    url: bookApiEP + "/" + _id,
+    method: "delete",
+    showToast: true,
+    isPrivateCall: true,
+  };
+  const result = await apiProcessor(obj);
+  return result;
+};

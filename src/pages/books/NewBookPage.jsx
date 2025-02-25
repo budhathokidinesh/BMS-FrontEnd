@@ -8,7 +8,7 @@ const NewBookPage = () => {
       <div className="p-3">NewBookPage</div>
 
       <hr />
-      <Link>
+      <Link to={"/user/books"}>
         <Button variant="secondary">&lt;Back</Button>
       </Link>
       <NewBookForm />

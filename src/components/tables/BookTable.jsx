@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
@@ -41,26 +41,39 @@ export const BookTable = () => {
           </tr>
         </thead>
         <tbody>
-          {displayBook.map(({ _id, status, title, imgUrl }, i) => (
-            <tr key={_id}>
-              <td>{i + 1}</td>
-              <td
-                className={status === "active" ? "text-success" : "text-danger"}
-              >
-                {status}
-              </td>
-              <td>
-                <img src={imgUrl} alt="" width="100px" />
-              </td>
-              <td>{title}</td>
-              <td>Yes, No: available date</td>
-              <td>
-                <Link to={"/user/edit-book/" + _id}>
-                  <Button variant="warning">Edit</Button>
-                </Link>
-              </td>
-            </tr>
-          ))}
+          {displayBook.map(
+            (
+              { _id, status, title, imgUrl, available, expectedAvailable },
+              i
+            ) => (
+              <tr key={_id}>
+                <td>{i + 1}</td>
+                <td
+                  className={
+                    status === "active" ? "text-success" : "text-danger"
+                  }
+                >
+                  {status}
+                </td>
+                <td>
+                  <img src={imgUrl} alt="" width="100px" />
+                </td>
+                <td>{title}</td>
+                <td>
+                  {available
+                    ? "Yes"
+                    : !available && expectedAvailable
+                    ? "From: " + expectedAvailable.slice(0, 10)
+                    : "N/A"}
+                </td>
+                <td>
+                  <Link to={"/user/edit-book/" + _id}>
+                    <Button variant="warning">Edit</Button>
+                  </Link>
+                </td>
+              </tr>
+            )
+          )}
         </tbody>
       </Table>
     </div>
