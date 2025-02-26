@@ -8,7 +8,6 @@ Welcome to (MERN) React Fullstack Books Management System. This project showcase
 - [Features](#Features)
 - [Technologies Used](#Technologies-Used)
 - [How to use](#How-to-use)
-- [Uses](#Uses)
 - [Project Structure](#project-Structure)
 - [Contributing](#Contributing)
 - [License](#License)
@@ -96,6 +95,13 @@ yarn dev
 ```
 
 Note: If you are not using `yarn`, you must install it globally. To install `yarn` globally, run the following command `npm i yarn -g`
+
+5. **Creating the account**: When you open website you will se home page displaying books available. On the right side of the nav bar you will find home, sign up and login button. First click signup button. You will land signup page. On that page you need to provide First name, Last name, phone, Email and password (Please read carefully instruction for password). After submitting the form you will see pop up message saying "Activation link is sent to your email. Please check your email including junk folder."
+
+6. **Activating the account**: Please check your email. You will find activation lik and click it. After clicking it your accound will activate and you may log in. You will also get notification email saying "Your email has been activatd. You may log in now".
+
+7. **User Book Borrowing**: When you click login button it will take to you in login page where you will provide email and password. After succesfully loged in you will go in the dashboard.You will find differet books available and chose books you like and borrow. You will have option to return books. After returning book you can give rating and leave reviews.
+8. **Admins**: If you are admins you can login as users do.However, you have different tasks rather than users. After landing in dashboard page you will have options like adding new books, updatng books and deleting books. You wil see "Add new book" button on top of right corner of book table. After clicking that you will land on add new book page. There you can provide all information needed while adding new book. On the book table. At the right side of the each books you will see "Edit" button. By clicking that button you can edit books as it needed. If you want you can delete book you can do in edit page. You will find "Delete" button on the buttom of the edit page.
 
 ## Project Structure
 
@@ -188,4 +194,4 @@ If you have any questions or want to get in touch, feel free to reach out:
 
 ---
 
-Thank you for visiting my portfolio website repository! I hope you find it informative and engaging. Your feedback ad contributions are highly appreciated.
+Thank you for visiting (MERN) React Fullstack Books Management System. I hope you find it usefull and engaging. You can build advance website with more functionalities. Your feedback ad contributions are highly appreciated.
