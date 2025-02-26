@@ -21,13 +21,13 @@ export const newBookInputs = [
     type: "text",
     placeholder: "Dinesh Budhathoki",
   },
-  {
-    label: "Image Url*",
-    name: "imgUrl",
-    type: "url",
-    required: true,
-    placeholder: "http://path-to-imgUrl",
-  },
+  // {
+  //   label: "Image Url*",
+  //   name: "imgUrl",
+  //   type: "url",
+  //   required: true,
+  //   placeholder: "http://path-to-imgUrl",
+  // },
   {
     label: "ISBN*",
     name: "isbn",
