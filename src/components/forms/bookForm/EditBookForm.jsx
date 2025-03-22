@@ -2,9 +2,8 @@ import useForm from "../../../hooks/useForm.js";
 import { Button, Form } from "react-bootstrap";
 import { CustomInput } from "../../customInput/CustomInput.jsx";
 import { editBookInputs } from "../../../assets/customInputs/bookInputs.js";
-
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { updateBookAPi } from "../../../features/user/book/bookAPI.js";
 
@@ -13,6 +12,8 @@ const initialState = {};
 const EditBookForm = () => {
   const { _id } = useParams();
   const navigate = useNavigate();
+  const [images, setImages] = useState([]);
+  const [imgToDelete, setImgToDelete] = useState([]);
   const { form, setForm, handleOnChange } = useForm(initialState);
   const { books } = useSelector((state) => state.bookInfo);
   // console.log(books);
@@ -23,9 +24,23 @@ const EditBookForm = () => {
       selectedBook?._id ? setForm(selectedBook) : navigate("/user/books");
     }
   }, [setForm]);
+
+  const handleOnImageSelect = (e) => {
+    console.log(e.target.files);
+    const files = [...e.target.files];
+    console.log(files);
+    if (files.length > 2) {
+      e.target.value = "";
+      return alert("Max 2 images are allowed");
+    }
+    setImages([...e.target.files]);
+  };
   //this is for submitting the form
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    if (imgToDelete.includes(form.imgUrl)) {
+      return alert("You can not delete the selected thumbnail");
+    }
     const {
       addedBy,
       createdAt,
@@ -38,12 +53,27 @@ const EditBookForm = () => {
       ...rest
     } = form;
     console.log(rest);
+    const formData = new FormData();
 
-    const result = await updateBookAPi(rest);
-    console.log(result);
+    for (const key in rest) {
+      formData.append(key, rest[key]);
+    }
+    images.map((img) => formData.append("images", img));
+    // formData.append("imgToDelete", imgToDelete);
+
+    imgToDelete.map((img) => formData.append("imgToDelete", img));
+
+    const result = await updateBookAPi(formData);
   };
 
-  console.log(form);
+  const handleOnImageToDelete = (e) => {
+    const { checked, value } = e.target;
+
+    checked
+      ? setImgToDelete([...imgToDelete, value])
+      : setImgToDelete(imgToDelete.filter((img) => img !== value));
+  };
+
   return (
     <div className="p-4">
       <h3>Add new book detail</h3>
@@ -68,6 +98,44 @@ const EditBookForm = () => {
             value={form[input.name]}
           />
         ))}
+        {/* this is for displaying image already in this book  */}
+
+        <div className="m-3  d-flex">
+          {form?.imageList?.map((img) => (
+            <div key={img} className="m-1">
+              <Form.Check
+                type="radio"
+                name="imgUrl"
+                value={img}
+                checked={form.imgUrl === img}
+                onChange={handleOnChange}
+                label={"Thumbnail"}
+              />
+              <Form.Check
+                type="checkbox"
+                label="Delete"
+                value={img}
+                onChange={handleOnImageToDelete}
+              />
+              <img
+                src={import.meta.env.VITE_BASE_API_URL + img.slice(6)}
+                alt="some img"
+                width="200px"
+                height="100px"
+                className="img-thumbnail"
+              />
+            </div>
+          ))}
+        </div>
+        <Form.Group className="mb-3">
+          <Form.Label>Upload More Images(Max 2 Images)</Form.Label>
+          <Form.Control
+            onChange={handleOnImageSelect}
+            type="file"
+            name="image"
+            accept="image/*"
+          />
+        </Form.Group>
         <div>
           <hr />
           <h4>Additional Info</h4>
@@ -81,7 +149,9 @@ const EditBookForm = () => {
           </div>
         </div>
         <div className="d-grid">
-          <Button type="submit">Add New Book</Button>
+          <Button type="submit" variant="warning">
+            Update Book
+          </Button>
         </div>
       </Form>
     </div>

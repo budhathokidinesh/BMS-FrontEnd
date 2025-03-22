@@ -86,12 +86,12 @@ export const editBookInputs = [
     type: "text",
     required: true,
   },
-  {
-    label: "Image Url*",
-    name: "imgUrl",
-    type: "url",
-    required: true,
-  },
+  // {
+  //   label: "Image Url*",
+  //   name: "imgUrl",
+  //   type: "url",
+  //   required: true,
+  // },
   {
     label: "ISBN*",
     name: "isbn",
