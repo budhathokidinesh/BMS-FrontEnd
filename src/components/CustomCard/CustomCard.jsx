@@ -26,7 +26,7 @@ const CustomCard = ({
         <Card.Text>
           {author} - {year}
         </Card.Text>
-        <Link to={slug}>
+        <Link to={"/book/" + slug}>
           <Button variant="dark">More...</Button>
         </Link>
       </Card.Body>
