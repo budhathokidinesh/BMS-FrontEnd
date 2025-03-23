@@ -1,0 +1,16 @@
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.title {
+  color: rgb(88, 88, 231);
+}
+.line {
+  background-color: black;
+  color: rgb(88, 88, 231);
+  flex-grow: 1;
+  height: 3px;
+  box-shadow: 0 4px 10px;
+  margin: 5rem 0;
+}

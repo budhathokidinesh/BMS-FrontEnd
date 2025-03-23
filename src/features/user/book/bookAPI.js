@@ -25,6 +25,16 @@ export const adminFetchAllBookAPi = async () => {
   return result;
 };
 
+//for public
+export const fetchAllPublicBookAPi = async () => {
+  const obj = {
+    url: bookApiEP,
+    method: "get",
+  };
+  const result = await apiProcessor(obj);
+  return result;
+};
+
 //this is for updating the book called update book api
 export const updateBookAPi = async (payload) => {
   const obj = {

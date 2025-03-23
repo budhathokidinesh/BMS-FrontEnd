@@ -50,6 +50,8 @@ const EditBookForm = () => {
       __v,
       isbn,
       available,
+
+      averageRating,
       ...rest
     } = form;
     console.log(rest);
